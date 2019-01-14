@@ -13,6 +13,36 @@ import com.worldpay.sdk.OrderService
 
 
 class WorldPayRepository:  Repository {
+    /*
+
+        Authorized orders can be refunded by sending a refund request.
+
+        For more details of the WorldPay refund Payment API:
+        https://developer.worldpay.com/jsonapi/api#refundingorder
+
+     */
+    override fun refundPayment(order_code: String): String {
+
+        try {
+
+//            val restClient = WorldpayRestClient("your-test-service-key")
+//
+//            restClient.orderService.refund('your-order-code')
+
+
+            return "success"
+
+        } catch (e: WorldpayException) {
+            println("Http Status code: " + e.apiError.httpStatusCode)
+            println("Error code: " + e.apiError.customCode)
+            println("Error description: " + e.apiError.description)
+            println("Error message: " + e.apiError.message)
+
+            return "fail"
+        }
+
+    }
+
 
     /*
 

@@ -26,7 +26,8 @@ class PaymentViewModelTest {
     private val order_code = "order code"
     private val successful_cancel_response = "success"
     private val unsuccessful_cancel_response = "fail"
-
+    private val successful_refund_response = "success"
+    private val unsuccessful_refund_response = "fail"
     @get:Rule
     var rule: TestRule = InstantTaskExecutorRule()
 

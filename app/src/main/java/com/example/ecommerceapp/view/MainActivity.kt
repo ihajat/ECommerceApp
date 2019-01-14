@@ -17,25 +17,36 @@ class MainActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
+        //DataBinding
         var activityMainBinding: ActivityMainBinding
         activityMainBinding = DataBindingUtil.setContentView(this,R.layout.activity_main)
 
+        //Retrieve our lifecycler-aware ViewModel using a factory.
         val viewModel = ViewModelProviders.of(this, ViewModelFactory(this)).get(PaymentViewModel::class.java)
+
+        //Observe on our MutableLiveData for changes
         viewModel.getPaymentResult().observe(this, Observer {
-            onSuccess(it)
+            onChange(it)
         })
 
-        viewModel.getCancelResult().observe(this, Observer {
-            onSuccess(it)
-        })
-
+        //Our controller, reprsenter by a presenter that directs flow
         activityMainBinding!!.presenter = object: Presenter {
+
+            //refund payments
+            override fun refundPayment() {
+                var order_code = activityMainBinding.edtOrderCode.text.toString()
+
+                viewModel.refundPayment(order_code)
+            }
+
+            //cancel payments
             override fun cancelPayment() {
                 var order_code = activityMainBinding.edtOrderCode.text.toString()
 
                 viewModel.cancelPayment(order_code)
             }
 
+            //authorise payments
             override fun authorisePayment() {
                 var amount = activityMainBinding.amountEdt.text.toString()
                 var type = activityMainBinding.edtType.text.toString()
@@ -44,10 +55,10 @@ class MainActivity : AppCompatActivity() {
                 viewModel.authorisePayment(amount,type,desc)
             }
         }
-
     }
 
-    private fun onSuccess(message: String?) {
+    //Is called from the MutableLiveData changes
+    private fun onChange(message: String?) {
         Toast.makeText(this, message, Toast.LENGTH_SHORT).show();
     }
 

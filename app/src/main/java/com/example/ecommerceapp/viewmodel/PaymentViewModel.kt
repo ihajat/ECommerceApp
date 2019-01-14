@@ -15,15 +15,10 @@ class PaymentViewModel(val repository: Repository) : ViewModel(){
     var type = ObservableField("")
     var description = ObservableField("")
     var orderCode = ObservableField("")
-    var resultPaymentData = MutableLiveData<String>()
-    var resultCancelData = MutableLiveData<String>()
+    private var resultPaymentData = MutableLiveData<String>()
 
     fun getPaymentResult(): MutableLiveData<String> {
         return resultPaymentData
-    }
-
-    fun getCancelResult(): MutableLiveData<String> {
-        return resultCancelData
     }
 
     /*
@@ -69,20 +64,6 @@ class PaymentViewModel(val repository: Repository) : ViewModel(){
         return orderAmount.toInt()
     }
 
-    /*
-        allows a shopper to Authorize and optionally Cancel a payment
-        using the Access Worldpay API
-        Currently ALL API calls have been replaced by stubs / fake data
-
-        Creating a new order is achieved through a POST on the Order API.
-        A new order can be created using a token, which represents the customer's card details
-        or chosen payment method stored on our servers, added to your checkout form by the WorldPay.js
-        library or obtained via the Token API.
-
-        For more details of the WorldPay authorisePayment API:
-        https://developer.worldpay.com/jsonapi/api#creatingorder
-
-     */
     fun authorisePayment(orderAmount: String, orderType: String, description: String){
 
         this.amount.set(orderAmount)
@@ -103,8 +84,15 @@ class PaymentViewModel(val repository: Repository) : ViewModel(){
 
         val result = repository.cancelPayment(order_code)
 
-        resultCancelData.value = result
+        resultPaymentData.value = result
     }
 
+    fun refundPayment(order_code: String) {
 
+        this.orderCode.set(order_code)
+
+        val result = repository.refundPayment(order_code)
+
+        resultPaymentData.value = result
+    }
 }

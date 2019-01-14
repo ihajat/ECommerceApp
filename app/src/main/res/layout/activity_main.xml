@@ -75,9 +75,17 @@
                 android:text="@string/cancel_transaction"
                 android:textSize="20dp"
                 android:onClick="@{(v)->presenter.cancelPayment()}"
-                android:layout_marginTop="60dp"
+                android:layout_marginTop="20dp"
         />
 
+        <Button
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/refund_transaction"
+                android:textSize="20dp"
+                android:onClick="@{(v)->presenter.refundPayment()}"
+                android:layout_marginTop="20dp"
+        />
     </LinearLayout>
 
 

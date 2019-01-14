@@ -6,4 +6,5 @@
     <string name="start_transaction">Start Transaction</string>
     <string name="cancel_transaction">Cancel Transaction</string>
     <string name="order_code">Order Code</string>
+    <string name="refund_transaction">Refund Transaction</string>
 </resources>
