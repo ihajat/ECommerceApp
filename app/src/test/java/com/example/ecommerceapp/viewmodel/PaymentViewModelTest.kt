@@ -61,5 +61,17 @@ class PaymentViewModelTest {
 
     }
 
+    //Scenario 2, when authorisation of Payment is unsuccessful return/display fail
+    @Test
+    fun displayFailWhenAuthoriseOfPaymentUnsuccessful() {
 
+        //When
+        Mockito.`when`(repository.authorisePayment(orderRequest1)).thenReturn(invalid_order_response)
+
+        //Then
+        viewModel.authorisePayment(invalid_order_amount,valid_order_type,order_description)
+
+        //Verify
+        assertEquals(invalid_order_response,viewModel.getPaymentResult().value)
+    }
 }
