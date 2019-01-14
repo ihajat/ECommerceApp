@@ -58,6 +58,25 @@
                 android:layout_marginTop="60dp"
         />
 
+        <EditText
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="20dp"
+                android:id="@+id/edtOrderCode"
+                android:hint="@string/order_code"
+                android:text="@={model.orderCode}"
+                android:textSize="18dp"
+                android:gravity="center"
+        />
+
+        <Button
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/cancel_transaction"
+                android:textSize="20dp"
+                android:onClick="@{(v)->presenter.cancelPayment()}"
+                android:layout_marginTop="60dp"
+        />
 
     </LinearLayout>
 

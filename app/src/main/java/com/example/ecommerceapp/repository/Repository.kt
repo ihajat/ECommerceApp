@@ -5,4 +5,5 @@ import com.worldpay.gateway.clearwater.client.core.dto.request.OrderRequest
 interface Repository {
     fun authorisePayment(orderRequest: OrderRequest): String
     fun getToken(): String
+    fun cancelPayment(order_code: String): String
 }

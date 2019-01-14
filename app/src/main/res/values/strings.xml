@@ -4,4 +4,6 @@
     <string name="order_type">Amount Type</string>
     <string name="order_description">Description</string>
     <string name="start_transaction">Start Transaction</string>
+    <string name="cancel_transaction">Cancel Transaction</string>
+    <string name="order_code">Order Code</string>
 </resources>

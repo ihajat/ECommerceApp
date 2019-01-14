@@ -14,10 +14,16 @@ class PaymentViewModel(val repository: Repository) : ViewModel(){
     var amount = ObservableField("")
     var type = ObservableField("")
     var description = ObservableField("")
-    var resultData = MutableLiveData<String>()
+    var orderCode = ObservableField("")
+    var resultPaymentData = MutableLiveData<String>()
+    var resultCancelData = MutableLiveData<String>()
 
     fun getPaymentResult(): MutableLiveData<String> {
-        return resultData
+        return resultPaymentData
+    }
+
+    fun getCancelResult(): MutableLiveData<String> {
+        return resultCancelData
     }
 
     /*
@@ -87,8 +93,17 @@ class PaymentViewModel(val repository: Repository) : ViewModel(){
 
         val result = repository.authorisePayment(orderRequest)
 
-        resultData.value = result
+        resultPaymentData.value = result
 
+    }
+
+    fun cancelPayment(order_code: String) {
+
+        this.orderCode.set(order_code)
+
+        val result = repository.cancelPayment(order_code)
+
+        resultCancelData.value = result
     }
 
 

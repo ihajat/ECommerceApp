@@ -25,7 +25,17 @@ class MainActivity : AppCompatActivity() {
             onSuccess(it)
         })
 
+        viewModel.getCancelResult().observe(this, Observer {
+            onSuccess(it)
+        })
+
         activityMainBinding!!.presenter = object: Presenter {
+            override fun cancelPayment() {
+                var order_code = activityMainBinding.edtOrderCode.text.toString()
+
+                viewModel.cancelPayment(order_code)
+            }
+
             override fun authorisePayment() {
                 var amount = activityMainBinding.amountEdt.text.toString()
                 var type = activityMainBinding.edtType.text.toString()
@@ -36,7 +46,6 @@ class MainActivity : AppCompatActivity() {
         }
 
     }
-
 
     private fun onSuccess(message: String?) {
         Toast.makeText(this, message, Toast.LENGTH_SHORT).show();

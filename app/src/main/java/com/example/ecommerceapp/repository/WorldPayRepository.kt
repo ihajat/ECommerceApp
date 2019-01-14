@@ -6,9 +6,41 @@ import com.worldpay.gateway.clearwater.client.core.dto.CurrencyCode
 import com.worldpay.gateway.clearwater.client.core.dto.common.Address
 import com.worldpay.gateway.clearwater.client.core.dto.request.OrderRequest
 import com.worldpay.gateway.clearwater.client.core.exception.WorldpayException
+import com.worldpay.sdk.WorldpayRestClient
+import com.worldpay.sdk.OrderService
+
+
 
 
 class WorldPayRepository:  Repository {
+
+    /*
+
+        Authorized orders can be cancelled by sending a cancel request.
+
+        For more details of the WorldPay cancel Payment API:
+        https://developer.worldpay.com/jsonapi/api#cancelorder
+
+     */
+    override fun cancelPayment(order_code: String): String {
+
+        try {
+
+//            val orderService = WorldpayRestClient('your-service-key').orderService
+//            orderService.cancel("your-order-code")
+
+            return "success"
+
+        } catch (e: WorldpayException) {
+            println("Http Status code: " + e.apiError.httpStatusCode)
+            println("Error code: " + e.apiError.customCode)
+            println("Error description: " + e.apiError.description)
+            println("Error message: " + e.apiError.message)
+
+            return "fail"
+        }
+
+    }
 
     /*
     allows a shopper to Authorize and optionally Cancel a payment
