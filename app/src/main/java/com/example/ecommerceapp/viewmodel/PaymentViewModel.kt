@@ -20,6 +20,23 @@ class PaymentViewModel(val repository: Repository) : ViewModel(){
         return resultData
     }
 
+    /*
+        The WorldPay APIs order ( standard ) requires an order request
+
+        The following fields are recommended to improve risk checking:
+
+            name
+            billingAddress
+            deliveryAddress
+            shopperEmailAddress
+            shopperIpAddress
+            shopperSessionId
+            Other optional fields include:
+
+            customerOrderCode: code under which this order is known in your systems
+            settlementCurrency: the currency you want to be paid in
+
+     */
     fun orderRequestFactory(orderAmount: String, orderType: String, description: String): OrderRequest {
         val orderRequest = OrderRequest()
         orderRequest.orderType = orderType
@@ -40,6 +57,21 @@ class PaymentViewModel(val repository: Repository) : ViewModel(){
 
         return orderRequest
     }
+
+    /*
+        allows a shopper to Authorize and optionally Cancel a payment
+        using the Access Worldpay API
+        Currently ALL API calls have been replaced by stubs / fake data
+
+        Creating a new order is achieved through a POST on the Order API.
+        A new order can be created using a token, which represents the customer's card details
+        or chosen payment method stored on our servers, added to your checkout form by the WorldPay.js
+        library or obtained via the Token API.
+
+        For more details of the WorldPay authorisePayment API:
+        https://developer.worldpay.com/jsonapi/api#creatingorder
+
+     */
     fun authorisePayment(orderAmount: String, orderType: String, description: String){
 
         this.amount.set(orderAmount)

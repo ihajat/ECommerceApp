@@ -20,6 +20,7 @@ class PaymentViewModelTest {
     private val invalid_order_response = "fail"
     private val valid_order_response = "success"
     private val valid_order_amount = "100"
+    private val invalid_order_amount = ""
     private val valid_order_type = "SALE"
     private val order_description = "test data"
 
@@ -28,7 +29,7 @@ class PaymentViewModelTest {
 
     lateinit var viewModel: PaymentViewModel
 
-    lateinit var orderRequest: OrderRequest
+    lateinit var orderRequest1: OrderRequest
 
     @Mock
     lateinit var repository: Repository
@@ -37,7 +38,7 @@ class PaymentViewModelTest {
     @Before
     fun setUp() {
         viewModel = PaymentViewModel(repository)
-        orderRequest = viewModel.orderRequestFactory(valid_order_amount,valid_order_type,order_description)
+        orderRequest1 = viewModel.orderRequestFactory(valid_order_amount,valid_order_type,order_description)
     }
 
     @After
@@ -50,7 +51,7 @@ class PaymentViewModelTest {
     fun displaySuccessWhenAuthoriseOfPaymentSuccessful() {
 
         //When
-        Mockito.`when`(repository.authorisePayment(orderRequest)).thenReturn(valid_order_response)
+        Mockito.`when`(repository.authorisePayment(orderRequest1)).thenReturn(valid_order_response)
 
         //Then
         viewModel.authorisePayment(valid_order_amount,valid_order_type,order_description)
