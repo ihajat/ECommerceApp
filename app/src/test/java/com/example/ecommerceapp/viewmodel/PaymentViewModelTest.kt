@@ -23,6 +23,8 @@ class PaymentViewModelTest {
     private val invalid_order_amount = ""
     private val valid_order_type = "SALE"
     private val order_description = "test data"
+    private val order_code = "order code"
+    private val successful_cancel_response = "success"
 
     @get:Rule
     var rule: TestRule = InstantTaskExecutorRule()
@@ -78,4 +80,21 @@ class PaymentViewModelTest {
         //Verify
         assertEquals(invalid_order_response,viewModel.getPaymentResult().value)
     }
+
+    // Scenario 3, cancel a Payment is successful return/display success
+    // Precondition: requires valid input
+    @Test
+    fun displaySuccessWhenCancellationOfPayment() {
+
+        //When
+        Mockito.`when`(repository.cancelPayment(order_code)).thenReturn(successful_cancel_response)
+
+        //Then
+        viewModel.cancelPayment(order_code)
+
+        //Verify
+        assertEquals(successful_cancel_response,viewModel.getCancelResult().value)
+
+    }
+
 }
