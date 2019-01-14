@@ -113,4 +113,20 @@ class PaymentViewModelTest {
         assertEquals(unsuccessful_cancel_response,viewModel.getCancelResult().value)
 
     }
+
+    // Scenario 5, refund a Payment is successful return/display success
+    // Precondition: requires valid input
+    @Test
+    fun displaySuccessWhenRefundingOfPayment() {
+
+        //When
+        Mockito.`when`(repository.refundPayment(order_code)).thenReturn(successful_refund_response)
+
+        //Then
+        viewModel.refundPayment(order_code)
+
+        //Verify
+        assertEquals(successful_refund_response,viewModel.getRefundResult().value)
+
+    }
 }
