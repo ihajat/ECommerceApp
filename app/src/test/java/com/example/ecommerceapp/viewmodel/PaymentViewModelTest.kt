@@ -25,6 +25,7 @@ class PaymentViewModelTest {
     private val order_description = "test data"
     private val order_code = "order code"
     private val successful_cancel_response = "success"
+    private val unsuccessful_cancel_response = "fail"
 
     @get:Rule
     var rule: TestRule = InstantTaskExecutorRule()
@@ -97,4 +98,19 @@ class PaymentViewModelTest {
 
     }
 
+    // Scenario 4, cancel a Payment is unsuccessful return/display fail
+    // Precondition: na
+    @Test
+    fun displayFailWhenCancellationOfPayment() {
+
+        //When
+        Mockito.`when`(repository.cancelPayment(order_code)).thenReturn(unsuccessful_cancel_response)
+
+        //Then
+        viewModel.cancelPayment(order_code)
+
+        //Verify
+        assertEquals(unsuccessful_cancel_response,viewModel.getCancelResult().value)
+
+    }
 }
