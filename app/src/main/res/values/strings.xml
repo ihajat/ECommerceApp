@@ -1,3 +1,7 @@
 <resources>
     <string name="app_name">ECommerceApp</string>
+    <string name="amount">Amount</string>
+    <string name="order_type">Amount Type</string>
+    <string name="order_description">Description</string>
+    <string name="start_transaction">Start Transaction</string>
 </resources>
