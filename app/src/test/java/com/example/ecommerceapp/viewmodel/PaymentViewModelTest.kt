@@ -29,7 +29,7 @@ class PaymentViewModelTest {
 
     lateinit var viewModel: PaymentViewModel
 
-    lateinit var orderRequest1: OrderRequest
+    lateinit var orderRequest: OrderRequest
 
     @Mock
     lateinit var repository: Repository
@@ -38,7 +38,6 @@ class PaymentViewModelTest {
     @Before
     fun setUp() {
         viewModel = PaymentViewModel(repository)
-        orderRequest1 = viewModel.orderRequestFactory(valid_order_amount,valid_order_type,order_description)
     }
 
     @After
@@ -50,8 +49,10 @@ class PaymentViewModelTest {
     @Test
     fun displaySuccessWhenAuthoriseOfPaymentSuccessful() {
 
+        orderRequest = viewModel.orderRequestFactory(valid_order_amount,valid_order_type,order_description)
+
         //When
-        Mockito.`when`(repository.authorisePayment(orderRequest1)).thenReturn(valid_order_response)
+        Mockito.`when`(repository.authorisePayment(orderRequest)).thenReturn(valid_order_response)
 
         //Then
         viewModel.authorisePayment(valid_order_amount,valid_order_type,order_description)
@@ -62,11 +63,14 @@ class PaymentViewModelTest {
     }
 
     //Scenario 2, when authorisation of Payment is unsuccessful return/display fail
+    // Precondition: requires invalid amount
     @Test
     fun displayFailWhenAuthoriseOfPaymentUnsuccessful() {
 
+        orderRequest = viewModel.orderRequestFactory(invalid_order_amount,valid_order_type,order_description)
+
         //When
-        Mockito.`when`(repository.authorisePayment(orderRequest1)).thenReturn(invalid_order_response)
+        Mockito.`when`(repository.authorisePayment(orderRequest)).thenReturn(invalid_order_response)
 
         //Then
         viewModel.authorisePayment(invalid_order_amount,valid_order_type,order_description)

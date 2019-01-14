@@ -42,7 +42,7 @@ class PaymentViewModel(val repository: Repository) : ViewModel(){
         orderRequest.orderType = orderType
         orderRequest.isAuthorizeOnly = true
         orderRequest.token = repository.getToken() //  "your-order-token"
-        orderRequest.amount = orderAmount.toInt()
+        orderRequest.amount = validateAmount(orderAmount)
         orderRequest.currencyCode = CurrencyCode.GBP
         orderRequest.name = "test name"
         orderRequest.orderDescription = description
@@ -56,6 +56,11 @@ class PaymentViewModel(val repository: Repository) : ViewModel(){
         orderRequest.billingAddress = address
 
         return orderRequest
+    }
+
+    fun validateAmount(orderAmount: String): Int {
+        if(orderAmount == null || orderAmount.equals("")) return 0
+        return orderAmount.toInt()
     }
 
     /*
